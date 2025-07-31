@@ -1,33 +1,51 @@
-//first create a basic server 
-
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const e = require("express");
+const cors = require("cors");
 
 dotenv.config();
+const app = express();
 
+// CORS setup
+const corsOptions = {
+  origin: '*', 
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // match origin
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 const MONGOURL = process.env.MONGO_URL;
-const PORT = process.env.PORT || 4000 ;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect(MONGOURL , {
+// DB connection
+mongoose
+  .connect(MONGOURL, {
     useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-    console.log("Database connected successfull");
-    app.listen(PORT , () => {
-        console.log(`server is running on port ${PORT}`);
-        
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database connected successfully");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
-    
-})
-.catch((error) => {
-    console.log("The error is : " , error);
-})
+  })
+  .catch((error) => {
+    console.log("The error is:", error);
+  });
 
-
+// Routes
 const studentRoutes = require("./routes/studentRoute.js");
-app.use("/admin", studentRoutes);
+app.use("/", studentRoutes);

@@ -1,6 +1,6 @@
 const studentModel = require("../model/studentModel.js"); // ✅ correct path and filename
 
-// create a student id 
+// create a student id
 exports.createuser = async (req, res) => {
   try {
     const { fullname, email, mobile_no, college_name } = req.body;
@@ -29,28 +29,29 @@ exports.createuser = async (req, res) => {
 
     const savedStudent = await newStudent.save();
 
-    res.status(201).json({ message: "Student created successfully", data: savedStudent });
-
+    res
+      .status(201)
+      .json({ message: "Student created successfully", data: savedStudent });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "INTERNAL SERVER ERROR" });
   }
 };
 
-// get a student detail 
+// get a student detail
 
-exports.getUser = async(req ,res) => {
-    try{
-        const allDetails = await studentModel.find();
-        res.status(200).json(allDetails);
-        console.log(allDetails);
-    }catch(error){
-        console.log(error);
-        res.status(500).json({error : "INTERNAL SERVER ERROR"});
-    }
-}
+exports.getUser = async (req, res) => {
+  try {
+    const allDetails = await studentModel.find();
+    res.status(200).json(allDetails);
+    console.log(allDetails);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "INTERNAL SERVER ERROR" });
+  }
+};
 
-// update 
+// update
 
 exports.updateStudent = async (req, res) => {
   try {
@@ -72,7 +73,6 @@ exports.updateStudent = async (req, res) => {
     res.status(500).json({ error: "INTERNAL SERVER ERROR" });
   }
 };
-
 
 // delete
 

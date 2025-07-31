@@ -1,24 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const studentController = require("../controller/studentController.js");
+const studentController = require("../controller/studentController");
 
-// Create student
-router.post("/create", studentController.createuser);
+// POST /admin/create
+router.post("/admin/create", studentController.createuser);
 
-// Get all students
-router.get("/get", async (req, res) => {
-  try {
-    const students = await require("../model/studentModel").find();
-    res.json(students);
-  } catch (err) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+// Optional: GET all students
+router.get("/admin/get", studentController.getUser);
 
-// Update student
-router.put("/update/:id", studentController.updateStudent);
+// Optional: PUT /admin/update/:id
+router.put("/admin/update/:id", studentController.updateStudent);
 
-// Delete student
-router.delete("/delete/:id", studentController.deleteStudent);
+// Optional: DELETE /admin/delete/:id
+router.delete("/admin/delete/:id", studentController.deleteStudent);
 
 module.exports = router;
