@@ -14,7 +14,7 @@ const StudentList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/admin/create", student);
+      await axios.post("https://simple-student-form.onrender.com/admin/create", student);
       setStudent({ fullname: "", email: "", mobile_no: "", college_name: "" });
 
       // ✅ GET: Fetch after submit
@@ -27,7 +27,7 @@ const StudentList = () => {
   // ✅ GET: Fetch students
   const fetchStudents = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/admin/get");
+      const res = await axios.get("https://simple-student-form.onrender.com/admin/get");
       setStudents(res.data);
     } catch (error) {
       console.error("Error fetching students", error);
