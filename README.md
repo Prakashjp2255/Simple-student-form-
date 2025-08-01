@@ -17,3 +17,15 @@ This is a simple full-stack MERN application where users can fill and submit a s
 
 ## 📂 Folder Structure
 
+## 🔧 Setup Instructions
+
+### Backend
+
+```bash
+cd server
+npm install
+npm start
+cd client
+npm install
+npm start
+
